@@ -1,0 +1,144 @@
+.sidebar {
+	width: 115px;
+	height: 250px;
+	background-color: #fff000;
+	margin-top: 10px;
+}
+
+.widget {
+	height: 200px;
+	background-color: #eee;
+}
+
+.pad {
+	margin-top: 35px;
+	margin-left: -5px;
+}
+
+.cont {
+	height: 60px;
+	background-color: #fff;
+	border: 1px solid #eee;
+}
+
+.place {
+	min-height: 250px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	z-index: 9999;
+	margin-top: -1px;
+}
+
+.zzimbt {
+	margin-left: 15px;
+	margin-top: 5px;
+	color: rgba(173, 173, 173, 1);
+	margin-right: 10px;
+}
+
+.cont p {
+	text-align: center;
+	font-size: 11px;
+	padding-top: 4px;
+}
+
+.bdg {
+	background-color: #fff;
+	color: #bdbdbd;
+	/* color: #a6a6a6; */
+	font-size: 15px;
+	margin-left: -15px;
+	margin-top: 0px;
+}
+
+.one {
+	text-align: center;
+	padding-top: 8px;
+	border-bottom: 1px solid #333;
+	padding-bottom: 5px;
+	font-size: 12px;
+}
+
+.none {
+	text-align: center;
+	margin-top: 83px;
+	font-size: 12px;
+	display: none;
+}
+
+.count {
+	height: 40px;
+	margin-top: -8px;
+}
+
+.ari .thumb {
+	display: block;
+	margin-top: 10px;
+	margin-left: 11px;
+	border: 1px solid #fff;
+}
+
+.ari .thumb img:hover {
+	border: 1px solid #000;
+}
+
+.recent_paging button {
+	width: 15px;
+	height: 15px;
+}
+
+.recent_paging span {
+	width: 15px;
+	height: 15px;
+}
+
+/** scrolltotop_arrow_style css */
+@media only screen and (max-width: 1023px) {
+	#scrolltotop_parent {
+		bottom: 25px !important;
+		right: 25px !important;
+	}
+}
+
+#scrolltotop_parent {
+	background: #a6a6a6;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	z-index: 1002 !important;
+}
+
+#scrolltotop_parent:hover {
+	opacity: 0.7;
+	transition: 0.1s;
+}
+
+.scrolltotop_circle {
+	border-radius: 50%;
+}
+
+.scrolltotop_round_corners {
+	border-radius: 5px;
+}
+
+#scrolltotop_arrow {
+	width: 0px;
+	height: 0px;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-bottom: 12px solid white;
+	margin: 0 auto;
+	margin-top: 13px;
+}
+
+#scrolltotop_arrow:focus {
+	opacity: 0.7;
+	transition: 0.1s;
+}
+
+.scrolltotop_hide_onload {
+	display: none;
+}

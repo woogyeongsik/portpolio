@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myPageMapper">
+
+
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="MypageMap"
+		type="study.spring.ezen05.model.Mypage">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="pla_no" column="pla_no" />
+		<result property="user_id" column="user_id" />
+		<result property="sco_no" column="sco_no" />
+		<result property="score" column="score" />
+		<result property="comment" column="comment" />
+		<result property="com_date" column="com_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="nm" column="nm" />
+		<result property="board_id" column="board_id" />
+		<result property="post_id" column="post_id"/>
+		<result property="subject" column= "subject" />
+		<result property="writer" column="writer" />
+		<result property="post_regdate" column="post_regdate"/>
+		<result property="hit" column="hit"/>
+		
+	</resultMap>
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.spring.ezen05.model.Mypage" resultMap="MypageMap">
+		SELECT *, p.nm
+		FROM score s
+		INNER JOIN place p
+		WHERE p.pla_no = s.pla_no and s.user_id = #{user_id}
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+
+	</select>
+
+
+	<!-- 페이징을 위한 전체 카운트 조회 -->
+	<select id="selectCountAll"
+		parameterType="study.spring.ezen05.model.Mypage" resultType="int">
+		SELECT
+		COUNT(*) FROM score WHERE user_id = #{user_id}
+	</select>
+	
+
+<!--  나의 문의/답변 다중행 조회를 위한 기능 정의 -->
+	<select id="selectMyQnAList"
+		parameterType="study.spring.ezen05.model.Mypage"
+		resultMap="MypageMap">
+		SELECT
+		board_id, post_id, subject, p.user_id as writer, DATE_FORMAT(p.reg_date, '%Y-%m-%d') AS post_regdate, hit
+		FROM post p
+		INNER JOIN board b ON p.board_id = b.board_id
+		LEFT OUTER JOIN team5.member m
+		ON p.user_id = m.userId
+		WHERE board_id = 2 AND p.user_id =#{user_id}
+	</select>
+	
+</mapper>

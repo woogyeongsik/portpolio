@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ZzimMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="Zzim"
+		type="study.spring.ezen05.model.Zzim">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="id" column="id" />
+		<result property="user_id" column="user_id" />
+		<result property="pla_no" column="pla_no" />
+		<result property="zzim_ok_not" column="zzim_ok_not" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="nm" column="nm" />
+		<result property="addr" column="addr" />
+	</resultMap>
+
+	<!-- pla_no값을 구하여 Pojo에 담기 위한 단일 조회 -->
+	<select id="find_pla_no"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultType="int">
+		SELECT max(pla_no) FROM place where nm=#{nm}
+	</select>
+
+	<!-- pla_no값을 구하여 Pojo에 담기 위한 단일 조회 -->
+	<select id="zzim_insert"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultMap="Zzim">
+		INSERT
+		INTO zzim (user_id,pla_no,zzim_ok_not,reg_date,edit_date)
+		values (#{user_id},#{pla_no},#{zzim_ok_not},#{reg_date},#{edit_date});
+	</select>
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="select_zzim_list"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultMap="Zzim">
+		SELECT zzim.pla_no, place.nm, place.addr
+		FROM zzim
+		inner join place
+		on zzim.pla_no = place.pla_no
+		where zzim.user_id = #{user_id} and zzim_ok_not != 0
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+
+	<select id="update_zzim"
+		parameterType="study.spring.ezen05.model.Zzim">
+		UPDATE zzim SET zzim_ok_not = IF (zzim_ok_not = 0, 1, 0) WHERE user_id=#{user_id} and pla_no = #{pla_no}
+	</select>
+
+	<select id="get_zzim"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultMap="Zzim">
+		SELECT * FROM zzim where user_id=#{user_id} and pla_no=#{pla_no}
+	</select>
+
+	<select id="count_zzim"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultType="int">
+		SELECT count(*) FROM zzim where user_id=#{user_id} and zzim_ok_not != 0;
+	</select>
+
+
+	<select id="find_reg_date"
+		parameterType="study.spring.ezen05.model.Zzim"
+		resultType="String">
+		SELECT reg_date from zzim where user_id=#{user_id} and pla_no=#{pla_no}
+	</select>
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ScoreMapper">
+
+	
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="scoreMap"
+		type="study.spring.ezen05.model.Score">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="sco_no" column="sco_no" />
+		<result property="user_id" column="user_id" />
+		<result property="pla_no" column="pla_no" />
+		<result property="score" column="score" />
+		<result property="comment" column="comment" />
+		<result property="com_date" column="com_date" />
+		<result property="edit_date" column="edit_date" />
+		
+		
+		
+		
+	</resultMap>
+
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.spring.ezen05.model.Score"
+		resultMap="scoreMap">
+		SELECT sco_no, user_id, pla_no, score, comment, com_date, edit_date
+		FROM score 		
+		WHERE sco_no=#{sco_no}
+	</select>
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.spring.ezen05.model.Score"
+		resultMap="scoreMap">
+		SELECT sco_no, user_id, p.pla_no, s.score, comment, com_date, edit_date, p.nm
+		FROM score s
+		INNER JOIN place p		
+		WHERE s.pla_no= p.pla_no and nm = #{nm} 
+		ORDER BY sco_no DESC
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+
+
+	</select>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectJsonList"
+		parameterType="study.spring.ezen05.model.Score"
+		resultMap="scoreMap">
+		SELECT sco_no, user_id, p.pla_no, s.score, comment, com_date, edit_date, p.nm
+		FROM score s
+		INNER JOIN place p		
+		WHERE s.pla_no= p.pla_no and nm = #{nm} and user_id=#{user_id} 
+		ORDER BY sco_no DESC
+
+		
+
+
+	</select>
+
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.spring.ezen05.model.Score"
+		useGeneratedKeys="true" keyProperty="sco_no">
+		INSERT INTO score (user_id, pla_no, score, comment) VALUES
+		(#{user_id},#{pla_no},#{score},#{comment});
+	</insert>
+
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.spring.ezen05.model.Score">
+		DELETE FROM score WHERE sco_no = #{sco_no};
+	</delete>
+
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.spring.ezen05.model.Score">
+		UPDATE score SET
+		score=#{score},comment=#{comment},edit_date=now()
+		WHERE sco_no=#{sco_no};
+	</update>
+
+	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다. count, max, min, sum, avg 함수를 사용할 
+		경우 Mapper에서는 resultMap이 아닌 resultType으로 반환한다. -->
+
+	
+	<select id="selectCountAll"
+		parameterType="study.spring.ezen05.model.Score"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM score s
+        inner join place p 
+        where s.pla_no= p.pla_no and nm = #{nm}
+	</select>
+	
+	<select id="selectCountAvg"
+		parameterType="study.spring.ezen05.model.Score"
+		resultType="float">
+		SELECT IFNULL(ROUND(AVG(score), 1) , 0)
+		FROM score s
+        inner join place p 
+        where s.pla_no= p.pla_no and nm = #{nm}
+	</select>
+
+</mapper>

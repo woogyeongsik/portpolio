@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SearchPlaceMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.spring.ezen05.model.SearchPlace"
+		id="SearchPlaceMap">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="path1" column="path1" />
+		<result property="nm" column="nm" />
+		<result property="tag" column="tag" />
+		<result property="pla_no" column="pla_no" />
+		<result property="nm_gu" column="nm_gu" />
+		<result property="totalCount" column="count" />
+	</resultMap>
+
+	<!-- 다중행 조회 -->
+	<select id="selectList"
+		parameterType="study.spring.ezen05.model.SearchPlace"
+		resultMap="SearchPlaceMap">
+		SELECT nm, nm_gu, tag
+		FROM place
+		WHERE nm_gu = #{nm_gu}
+		GROUP
+		BY pla_no
+		ORDER BY nm DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+
+	<!-- 페이징을 위한 전체 카운트 조회 -->
+	<select id="selectCountAll"
+		parameterType="study.spring.ezen05.model.SearchPlace" resultType="int">
+		SELECT
+		COUNT(*) as count FROM place WHERE nm_gu = #{nm_gu}
+	</select>
+</mapper>

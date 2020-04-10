@@ -1,0 +1,37 @@
+.thumbnail h4, p {
+	margin-left: 10px;
+	color: #222;
+}
+
+.thumbnail p {
+	margin-top: 12px;
+}
+
+small {
+	margin-right: 10px;
+}
+
+.img-responsive {
+	width: 100%;
+	position: relative;
+}
+
+.img {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: 230px;
+}
+
+.rank {
+	position: absolute;
+	font-weight: bold;
+	font-size: 20px;
+	top: 0px;
+	left: 30px;
+	color: #000;
+	text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px
+		0 #FFF;
+}

@@ -1,0 +1,227 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	overflow-x : hidden;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+.circle {
+	font-weight: bold;
+	font-size: 100px;
+	
+}
+
+.page-header {
+	/* width: 1140px; */
+	height: auto;
+}
+
+.ten-age, .twenty-age, .thirty-age, .forty-age, .fifty-age {
+	width: 1000px;
+	height: auto;
+	margin: 20px auto;
+}
+
+li {
+	list-style: none;
+}
+
+.ten-age>.sub-img>.subtop-img img, .twenty-age>.sub-img>.subtop-img img
+	{
+	float: left;
+	width: 23.5%;
+	height: 150px;
+	margin-left: 10px;
+}
+
+.clearfix:after {
+	content: '';
+	clear: both;
+	display: block;
+	float: none;
+	text-align: center;
+}
+
+.carousel-inner {
+	width: auto;
+	height: 600px;
+}
+
+.img {
+	width: 100% !important;
+	height: 100% !important;;
+}
+
+.carousel-indicators {
+	margin-bottom: -50px;
+}
+
+.item {
+	width: auto;
+	height: 600px;
+}
+
+.carousel-control {
+	:hover;
+}
+
+.carousel-control.left, .carousel-control.right {
+	background-image: none !important;
+}
+
+#ageLike {
+	text-align: center;
+	font-family: "Noto Sans KR", sans-serif !important;
+	font-size : 2.2em; 
+}
+
+#gendarLike {
+	text-align: center;
+	font-family: "Noto Sans KR", sans-serif !important;
+	font-size : 2.2em;
+	  
+}
+
+.age_left>i:hover, .age_right>i:hover,  .gendar_left>i:hover,  .gendar_right>i:hover {
+	color: #eee !important;
+	cursor: pointer !important;
+}
+
+.selectGendar {
+	transition : 0.5s;
+}
+
+.selectAge {
+	transition : 0.5s;
+}
+
+
+
+/** 이미지 오버레이 효과 */
+
+.location-image {
+  line-height: 0;
+  overflow: hidden;
+}
+
+.location-image img {
+  filter: blur(0px);
+  transition: filter 0.3s ease-in;
+  /** transform: scale(1.1); */
+}
+
+.location-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none !important;
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity .5s;
+  background: rgba(255,255,255,0.1);
+  color: white !important;
+  
+  /** position the text in t’ middle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-listing:hover .location-title {
+  opacity: 1;
+}
+
+.location-listing:hover .location-image img {
+  filter: blur(2px);
+}
+
+@media (hover: none) { 
+  .location-title {
+    opacity: 1;
+  }
+  .location-image img {
+    filter: blur(2px);
+  }
+}
+
+
+/** 이미지 오버레이 효과 */
+
+.sub-img > div > a {
+	width: 237px !important;
+	height: 150px !important;
+	margin-left: 8px;
+}
+
+.sub-img .subtop-img {
+	position: relative !important;
+}
+
+.sub-img > div:nth-child(2) > .location-title {
+	width: 234px !important;
+	height: 150px !important;
+	margin-left: 253px;
+}
+
+.sub-img > div:nth-child(3) > .location-title {
+	width: 234px !important;
+	height: 150px !important;
+	margin-left: 500px;
+}
+.sub-img > div:nth-child(4) > .location-title {
+	width: 234px !important;
+	height: 150px !important;
+	margin-left: 744px;
+}
+
+.sub-img > div:nth-child(2) {
+	bottom: 20px;
+}
+.sub-img > div:nth-child(3) {
+	bottom: 41px;
+}
+.sub-img > div:nth-child(4) {
+	bottom: 62px;
+}
+
+@keyframes spin3d {
+0%{ transform: rotate3d(0, 1, 0, 0deg); }
+  100% { transform: rotate3d(0, 1, 0, 360deg); }
+}
+
+
+.spin {	
+	  animation: spin3d 2s infinite linear; 
+}
+
+/** 카카오맵 CSS */
+
+.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, 'ëě', sans-serif;line-height: 1.5;}
+.wrap * {padding: 0;margin: 0;}
+.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.info .close:hover {cursor: pointer;}
+.info .body {position: relative;overflow: hidden;}
+.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.info .link {color: #5085BB;}
+ p {
+ 	white-space: initial;
+ }

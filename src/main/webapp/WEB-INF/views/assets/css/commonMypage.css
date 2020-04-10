@@ -1,0 +1,380 @@
+    .menu {
+      width: 1140px;
+      margin: auto;
+    }
+
+    .menu li {
+    	width: 20%;
+
+    }
+
+    .menu li a {
+    	text-align:center;
+    }
+
+    /* 전체 테이블 크기 */
+     table {width:1150px; }
+
+	/* 제목효과 */
+    .item .title {cursor:pointer;}
+
+    /** 제목 후버효과 */
+    .recruit a:hover {text-decoration: underline; cursor:pointer; color: rgba(162, 193, 242); }
+	/** 테이블 좌로 이동  35px만큼 이동 */
+     div.col-md-8 {
+    	right : 35px !important;
+    }
+     /** 모든 td 텍스트 가운데 정렬 */
+     td {
+     	text-align: center;
+     }
+
+     .clear:after {
+     	clear:none;
+     	float: none;
+     	content: "";
+
+     }
+
+tr.detail {
+  display: none;
+  width: 100%;
+}
+
+tr.detail div {
+  display: none;
+}
+
+.showmore:hover {
+  cursor: pointer;
+}
+
+.star_info {
+   margin-left: 75px;
+}
+
+
+.ico_star {
+   display: block;
+   background:
+      url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/ico_star_180723.png);
+      no-repeat;
+}
+
+ .size_s .star_rate {
+   width: 88px;
+   height: 16px;
+   background-position: 0 -60px;
+}
+
+.size_s .star_rate .inner_star {
+   background-position: 0 -80px;
+   height : 16px;
+
+}
+
+
+.breadcrumb>li+li:before {
+	content: "> \00a0" !important;
+}
+
+.breadcrumb {
+	background-color: #ffffff;
+}
+
+td  p {
+	margin: 0;
+	display: inline-block;
+}
+
+td div {
+	text-align: center;
+}
+.media-body {
+	padding-top: 10px;
+}
+
+.count:after {
+	clear: both;
+	float: none;
+}
+
+.count1 {
+	margin-left: 0px;
+	margin-top: 30px;
+}
+
+ .adj {
+	margin-left: 0px;
+	margin-top: 0px;
+	padding-left: 0px;
+}
+
+.count2 {
+	margin-left: 0px;
+	margin-top: 45px;
+}
+
+.media img {
+	width: 100px;
+	height: 100px;
+}
+
+/** 회원정보 수정 */
+.form-group1 {
+	width: 350px;
+	height: 210px;
+	margin: 100px auto;
+	border: 3px solid #222;
+    background-color: #dcdcdc;
+}
+.y {
+	width: 70%;
+	margin: 15px auto;
+}
+
+.j {
+	width: 80%;
+	padding: 5px 0;
+	font-size: 12px;
+	border: 1px solid #eee;
+	margin: auto;
+}
+
+.btn-sm {
+	margin: auto;
+	margin-top: 5px;
+	background-color: gray;
+	color: white;
+	width:70px;
+}
+
+div.font1 {
+	margin-top: 35px;
+	margin-left: 70px;
+	font-size: 1em;
+}
+
+body {
+	/**overflow: hidden; */
+  background: #fff;
+  color: #000;  q
+  padding: 0;
+ -webkit-text-size-adjust: none;
+}
+
+.ab {
+	padding-top: 33px;
+}
+
+
+/** 마이페이지 리뷰리스트에서 필요없는 a태그 후버효과 및 클릭효과 추가(현재페이지에 머물경우) */
+.hover_hide {
+	pointer-events:none;
+}
+
+.click {
+
+	background-color: #eee !important;
+	cursor: default !important;
+}
+
+/** 모달 창 관련 CSS 속성 */
+/** 모달창 리뷰평점 바꾸기 속성 */
+.change_star {
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+    z-index: 2;
+    width: 18px;
+   	height: 16px;
+   	background-position: 0 -60px;
+}
+.selected {
+	background-position: 0 -80px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), not all, only screen and (min-resolution: 1.5dppx)
+.ico_star {
+    background-image: url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/rtn/ico_star_180723.png);
+    background-size: 152px 98px;
+}
+
+.hover {
+	cursor: pointer;
+	width: 20% !importnat;
+	background-position: 0 -80px;
+}
+
+.change_position {
+	background-position: 0 -80px;
+}
+
+
+
+
+
+
+/** 찜 목록 관련 CSS */
+
+/* CSS Animations */
+#like-list @-webkit-keyframes fadeout {
+  0%   { background: #fff; }
+  10%   { background: #eee; }
+  100% { background: #fff; }
+}
+#like-list @-moz-keyframes fadeout {
+  0%   { background: #fff; }
+  10%   { background: #eee; }
+  100% { background: #fff; }
+}
+#like-list @-o-keyframes fadeout {
+  0%   { background: #fff; }
+  10%   { background: #eee; }
+  100% { background: #fff; }
+}
+#like-list @keyframes fadeout {
+  0%   { background: #fff; }
+  10%   { background: #eee; }
+  100% { background: #fff; }
+}
+
+
+#like-list .list li {
+  border-bottom: 1px solid #ccc;
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+}
+#like-list .inner {
+  display: table-row;
+  overflow: hidden;
+}
+#like-list .li-img {
+  display: table-cell;
+  vertical-align: middle;
+  width: 40%;
+  padding-right: 1em;
+}
+#like-list .li-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+}
+#like-list .li-text {
+  display: table-cell;
+  vertical-align: middle;
+  width: 60%;
+}
+#like-list .li-head {
+  margin: 0;
+}
+#like-list .li-sub {
+  margin: 0;
+}
+
+@media all and (min-width: 40em) {
+  .list {
+    padding: 0.5em;
+    max-width: 45em;
+    margin: 0;
+    overflow: hidden;
+  }
+  .list li {
+    padding: 0.5em;
+    display: block;
+    width: 50%;
+    float: left;
+    background: none;
+    border: 0;
+  }
+  .inner {
+    display: block;
+  }
+  .li-img, .li-text, .inner {
+    display: block;
+    width: auto;
+    padding: 0;
+  }
+  .li-text {
+    padding: 0.5em 0;
+  }
+}
+
+@media all and (min-width: 60em) {
+  .list li {
+    width: 33.33333333%;
+  }
+}
+
+#like-list .inner:hover, .inner:focus {
+  color: #e51837;
+  text-decoration: none !important;
+}
+
+#like-list p {
+  margin: 0 0 1em;
+}
+
+#like-list img, object, video {
+  max-width: 100%;
+  border: 0;
+}
+
+#like-list a img {
+  border: 0;
+  outline: 0;
+}
+
+#like-list h1 {
+  font-size: 3em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2em;
+}
+
+#like-list h2 {
+  font-size: 2em;
+  line-height: 1.1;
+  margin-bottom: 0.2em;
+}
+
+#like-list h3 {
+  font-weight: normal;
+  line-height: 1.1;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid #ccc;
+}
+
+#like-list h1 a, h2 a, h3 a {
+  display: block;
+  color: #000;
+}
+#like-list h1 a:hover, h2 a:hover, h3 a:hover {
+  color: #e51837;
+  text-decoration: none !important;
+}
+#like-list blockquote {
+  border-left: 0.5em solid #ddd;
+  padding-left: 1em;
+  margin-left: 1em;
+}
+#like-list small {
+  color: #e51837;
+}
+
+#like-list input, textarea {
+  border: 1px solid #000;
+}
+
+#like-list input[type=search] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+#like-list ::-webkit-input-placeholder {
+  color: #808080;
+}
+#like-list :-moz-placeholder {
+    color: #808080;
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RankBestMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.spring.ezen05.model.RankBest"
+		id="RankBestMap">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="path1" column="path1" />
+		<result property="nm" column="nm" />
+		<result property="pla_no" column="pla_no" />
+		<result property="score" column="score" />
+		<result property="user_id" column="user_id" />
+		<result property="birthdate" column="birthdate" />
+		<result property="gender" column="gender" />
+		<result property="nm_gu" column="nm_gu" />
+		<result property="scoreAvg" column="avg" />
+		<result property="countReview" column="count" />
+	</resultMap>
+
+	<select id="selectListTotal"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score
+		WHERE
+		place.pla_no = score.pla_no
+		GROUP BY place.pla_no
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListTen"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score, `member`
+		WHERE
+		place.pla_no = score.pla_no AND `member`.user_id = score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1)
+		BETWEEN 13 AND 20
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListTwenty"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score, `member`
+		WHERE
+		place.pla_no = score.pla_no AND `member`.user_id = score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1)
+		BETWEEN 19 AND 30
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListThiryty"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score,
+		`member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id =
+		score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1)
+		BETWEEN 29 AND 40
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListForty"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score,
+		`member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id =
+		score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1)
+		BETWEEN 39 AND 50
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListFifty"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT
+		place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score,
+		`member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id =
+		score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1)
+		BETWEEN 49 AND 60
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+	<select id="selectListSixty"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score, `member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id = score.user_id AND
+		((left(now(),4) - left(`member`.birthdate,4)) + 1) >= 60
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+	
+	<select id="selectListFemale"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score, `member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id = score.user_id AND
+		`member`.gender = '여'
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+	
+	<select id="selectListMale"
+		parameterType="study.spring.ezen05.model.RankBest" resultMap="RankBestMap">
+		SELECT place.pla_no, place.nm, avg(score.score) avg, place.nm_gu, count(score.score) count
+		FROM place, score, `member`
+		WHERE place.pla_no = score.pla_no AND `member`.user_id = score.user_id AND
+		`member`.gender = '남'
+		GROUP BY place.pla_no, `member`.user_id
+		ORDER BY avg DESC
+		LIMIT 0, 30;
+	</select>
+
+
+	<!-- 현재나이 : (현재년도) - (태어난년도) + 1 datetime에서 연도만 가져온후 태어난년도를 뺀다. 태어난년도 : 
+		주민 -->
+
+</mapper>

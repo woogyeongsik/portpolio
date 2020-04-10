@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="CommentMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="commentMap"
+		type="study.spring.ezen05.model.Comment">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="cmt_id" column="cmt_id" />
+		<result property="post_id" column="post_id" />
+		<result property="board_id" column="board_id" />
+		<result property="user_id" column="user_id" />
+		<result property="cmt_content" column="cmt_content" />
+		<result property="cmt_regdate" column="cmt_regdate" />
+		<result property="cmt_editdate" column="cmt_editdate" />
+		<result property="cmt_del" column="cmt_del" />
+	</resultMap>
+
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	
+	<select id="selectList"
+		parameterType="study.spring.ezen05.model.Comment"
+		resultMap="commentMap">
+		SELECT cmt_id, post_id, board_id, user_id, cmt_content, cmt_regdate, cmt_editdate, cmt_del
+		FROM comment c
+		INNER JOIN board b ON c.brd_id = b.board_id
+		LEFT OUTER JOIN post p ON c.post_id = p.post_id
+		ORDER BY cmt_regdate DESC
+		WHERE post_id=#{post_id}
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+
+	</select>
+
+
+	<!-- 댓글 입력을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.spring.ezen05.model.Comment"
+		useGeneratedKeys="true" keyProperty="cmt_id">
+		INSERT INTO comment ( post_id, board_id, user_id, cmt_content, cmt_regdate, cmt_editdate
+		) VALUES (
+		#{post_id}, #{board_id}, #{user_id}, #{cmt_content}, now(), now()
+		)
+	</insert>
+
+	<!-- 댓글 수정을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.spring.ezen05.model.Comment">
+		UPDATE comment SET cmt_content=#{cmt_content}, cmt_editdate=now()
+		WHERE
+		cmt_id=#{cmt_id};
+	</update>
+
+	<!-- 댓글 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.spring.ezen05.model.Comment">
+		DELETE FROM comment WHERE cmt_id=#{cmt_id};
+	</delete>
+
+</mapper>

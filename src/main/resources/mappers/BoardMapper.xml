@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="BoardMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="boardMap"
+		type="study.spring.ezen05.model.Board">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="board_id" column="board_id" />
+		<result property="board_name" column="board_name" />
+		<result property="board_desc" column="board_desc" />
+		<result property="board_type" column="board_type" />
+		<result property="secret" column="secret" />
+		<result property="read_allow" column="read_allow" />
+		<result property="write_allow" column="write_allow" />
+		<result property="reply_allow" column="reply_allow" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="board_del" column="board_del" />
+		
+		
+	</resultMap>
+
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.spring.ezen05.model.Board"
+		resultMap="boardMap">
+		SELECT board_id, board_name, board_desc, board_type, secret, read_allow, write_allow, reply_allow,  reg_date, edit_date, board_del  FROM board WHERE board_id=#{board_id};
+	</select>
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.spring.ezen05.model.Board"
+		resultMap="boardMap">
+		SELECT board_id, board_name, board_desc, board_type, secret, read_allow, write_allow, reply_allow,  reg_date, edit_date, board_del  FROM board
+
+		<where>
+			<if test="board_name != null and board_name != ''">
+				board_name LIKE concat('%', #{board_name}, '%')
+			</if>
+			
+			<if test="board_type != null and board_type != ''">
+				OR board_type LIKE concat('%', #{board_type}, '%')
+			</if>
+		</where>
+
+		ORDER BY board_id, reg_date DESC
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+
+	</select>
+
+	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다. count, max, min, sum, avg 함수를 사용한 
+		경우 Mapper에서는 resultMap이 아닌 resultType으로 반환한다. -->
+	<select id="selectCountAll"
+		parameterType="study.spring.ezen05.model.Board" resultType="int">
+		SELECT COUNT(*) FROM board
+
+		<where>
+			<if test="board_name != null and board_name != ''">
+				board_name LIKE concat('%' , #{board_name}, '%')
+			</if>
+			<if test="board_type != null and board_type != ''">
+				OR board_type LIKE concat('%' , #{board_type}, '%')
+			</if>
+
+		</where>
+
+	</select>
+
+	<!--데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.spring.ezen05.model.Board"
+		useGeneratedKeys="true" keyProperty="brd_id">
+		INSERT INTO board ( board_name, board_desc, board_type, secret, read_allow, write_allow, reply_allow,  reg_date, edit_date, board_del) VALUES (#{board_name},#{board_desc}, #{board_type}, #{secret}, #{read_allow},#{write_allow}, #{reply_allow}, #{reg_date}, #{edit_date}, #{board_del});
+	</insert>
+
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.spring.ezen05.model.Board">
+		UPDATE board SET board_name=#{board_name}, board_desc= #{board_desc},board_type= #{board_type},secret=#{secret}, read_allow=#{read_allow}, write_allow=#{write_allow},reply_allow=#{reply_allow}, reg_date= #{reg_date}, edit_date=#{edit_date}, board_del=#{board_del}
+		WHERE
+		board_id=#{board_id};
+	</update>
+
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.spring.ezen05.model.Board">
+		DELETE FROM board WHERE board_id=#{board_id};
+	</delete>
+	
+	
+</mapper>
+    

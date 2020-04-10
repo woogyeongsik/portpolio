@@ -1,0 +1,27 @@
+.foot p, address {
+	text-align: center;
+	color: #ECE9E8;
+}
+
+.foot p {
+	margin-top: 22px;
+	font-size: 13px;
+}
+
+address {
+	font-size: 11px;
+}
+
+.foot {
+	background-color: black;
+	height: 100px;
+	display: table;
+	margin: auto;
+	width: 100%;
+	margin-top: 50px;
+}
+
+.con-cell {
+	display: table-cell;
+	vertical-align: middle;
+}

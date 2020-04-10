@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)을 명시한다. -->
+	<resultMap id="memberMap" type="study.spring.ezen05.model.Member">
+		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="userId" column="user_id" />
+		<result property="name" column="name" />
+		<result property="userPw" column="user_pw" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="birthdate" column="birthdate" />
+		<result property="tel" column="tel" />
+		<result property="postcode" column="postcode" />
+		<result property="address1" column="address" />		
+		<result property="address3" column="detailaddr" />
+		<result property="area1" column="area1" />
+		<result property="area2" column="area2" />
+		<result property="area3" column="area3" />
+		<result property="regDate" column="reg_date" />
+		<result property="editDate" column="edit_date" />		
+	</resultMap>
+	
+	<!-- 데이터 저장(회원 등록)을 위한 기능 정의 -->
+	<insert id="insertMem"
+		parameterType="study.spring.ezen05.model.Member"
+		keyProperty="userId">
+		<!-- concat으로 주소 합치기 - -->
+		INSERT INTO `member` (
+			user_id, name, user_pw, email, gender, birthdate, tel, postcode, address, detailaddr,
+			area1, area2, area3, reg_date, edit_date
+		)
+		VALUES (
+			#{userId}, #{name}, #{userPw}, #{email}, #{gender}, #{birthdate}, #{tel}, #{postcode},
+			#{address1}, #{address3}, #{area1}, #{area2}, #{area3}, now(), now()
+		)
+	</insert>	
+	
+	<!-- id 중복확인을 위한 데이터 수 조회 -->
+	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다.
+		  집계 함수를 사용한 경우 Mapper에서는 resultMap이 아닌 resultType으로 반환한다.
+	 -->
+	 <select id="selectCountAll"
+	 		 parameterType="study.spring.ezen05.model.Member"
+	 		 resultType="int">
+	 	SELECT COUNT(*) FROM `member` WHERE user_id = #{userId}
+	 </select>		
+	 
+	<!-- 데이터 수정(회원 정보 수정)을 위한 기능 정의 -->
+	<update id="editMem"
+		parameterType="study.spring.ezen05.model.Member">
+		UPDATE `member`	SET
+			user_pw = "${userPw}", email = #{email}, name = #{name}, gender = #{gender}, birthdate = #{birthdate},
+			tel = #{tel}, postcode = #{postcode},
+			address = #{address1}, detailaddr = #{address3},
+			area1 = #{area1}, area2 = #{area2}, area3 = #{area3}, edit_date = now()
+		WHERE user_id = #{userId}		
+	</update>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectMem"
+		parameterType="study.spring.ezen05.model.Member"
+		resultMap="memberMap">
+		SELECT user_id, user_pw, name, email, gender, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate,
+		tel, postcode, address, detailaddr, area1, area2, area3
+		FROM `member` WHERE user_id = #{userId};
+	</select>
+	
+	<!-- id 찾기(단일행 조회)를 위한 기능 정의 -->
+	<select id="selectId"
+		parameterType="study.spring.ezen05.model.Member"
+		resultMap="memberMap">
+		SELECT user_id, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date FROM `member`
+		WHERE name = #{name} and email = #{email};
+	</select>
+	
+	<!-- 비밀번호 재설정을 위한 기능 정의 -->
+	<update id="editPw"
+		parameterType="study.spring.ezen05.model.Member">
+		UPDATE `member`	SET
+			user_pw = "${userPw}", edit_date = now()
+		WHERE user_id = #{userId} and name = #{name} and email = #{email}	
+	</update>
+	
+	
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)을 명시한다. -->
+	<resultMap id="sessionMemMap" type="study.spring.ezen05.model.SessionMember">
+		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="userId" column="user_id" />
+		<result property="userPw" column="user_pw" />
+		<result property="email" column="email" />
+	</resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의(로그인 기능) -->
+	<select id="selectSessionItem"
+		parameterType="study.spring.ezen05.model.SessionMember"
+		resultMap="sessionMemMap">
+		SELECT user_id, user_pw, email FROM `member` WHERE user_id = #{userId} and user_pw = #{userPw};
+	</select>	
+	
+	<!-- 비밀번호 확인을 위한 데이터 수 조회 -->
+	<!-- 비밀번호 암호화 되어야 하므로 -->
+	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다.
+		  집계 함수를 사용한 경우 Mapper에서는 resultMap이 아닌 resultType으로 반환한다.
+	 -->
+	<select id="selectCount"
+	 		 parameterType="study.spring.ezen05.model.SessionMember"
+	 		 resultType="int">
+	 	SELECT COUNT(*) FROM `member` WHERE user_id = #{userId} and user_pw = #{userPw};
+	</select>
+</mapper>

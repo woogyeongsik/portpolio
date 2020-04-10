@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="PostMapper">
+
+	    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="postMap"
+		type="study.spring.ezen05.model.Post">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="board_id" column="board_id" />
+		<result property="post_id" column="post_id" />
+		<result property="user_id" column="user_id" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="post_pw" column="post_pw" />
+		<result property="is_secret" column="is_secret" />
+		<result property="hit" column="hit" />
+		<result property="reply_cnt" column="reply_cnt" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="ip" column="ip" />
+		<result property="refer" column="refer" />
+		<result property="level" column="level" />
+		<result property ="order" column="order" />
+		<result property ="post_del" column="post_del" />
+	
+	</resultMap>
+	
+	
+	
+		<!-- 공지사항 다중행 조회를 위한 기능 정의 -->
+	<select id="noticeSelectList"
+		parameterType="study.spring.ezen05.model.Post"
+		resultMap="postMap">
+		SELECT p.board_id, post_id, p.user_id, subject, content, post_pw, is_secret, hit, reply_cnt, Date_format(reg_date,'%Y-%m-%d') as reg_date, Date_format(edit_date,'%Y-%m-%d') as edit_date, ip, refer, level, order, post_del, b.boar_name
+		FROM post p
+		INNER JOIN board b ON p.board_id = b.board_id
+		LEFT OUTER JOIN member m ON p.user_id = m.user_id
+
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%')
+			</if>
+		</where>
+
+		ORDER BY post_id DESC
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+		
+	</select>
+	
+	
+	<!-- 공지사항 단일행 조회를 위한 기능 정의 -->
+	<select id="noticeSelectItem"
+		parameterType="study.spring.ezen05.model.Post"
+		resultMap="postMap">
+		SELECT p.board_id, post_id, p.user_id, subject, content, post_pw, is_secret, hit, reply_cnt, Date_format(reg_date,'%Y-%m-%d') as reg_date, Date_format(edit_date,'%Y-%m-%d') as edit_date, ip, refer, level, order, post_del, b.boar_name
+		FROM post p
+		INNER JOIN board b ON p.board_id = b.board_id
+		LEFT OUTER JOIN member m ON p.user_id = m.user_id
+		WHERE post_id=#{post_id}
+	</select>
+	
+	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+		<select id="selectCountAll"
+		parameterType="study.spring.ezen05.model.Post"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM post 
+	
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%' , #{subject}, '%')
+			</if>	
+		</where>
+	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="noticeInsertItem"
+		parameterType="study.spring.ezen05.model.Post"
+		useGeneratedKeys="true" keyProperty="post_id">
+		INSERT INTO post ( board_id, user_id, subject, content, post_pw, is_secret, hit, reply_cnt, reg_date, edit_date, cmt_del, ip, refer, level, order, post_del
+		) VALUES (
+		, #{board_id}, #{user_id}, #{subject}, #{content}, #{post_pw}, #{is_secret},#{hit},#{reply_cnt},now(),now(),#{cmt_del},#{ip},#{refer},#{level},#{order},#{post_del}
+		)
+	</insert>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="noticeUpdateItem"
+		parameterType="study.spring.ezen05.model.Post">
+		UPDATE post SET     subject=#{subject}, content=#{content}, post_pw=#{post_pw}, is_secret=#{is_secret}, reg_date=#{reg_date}, now(), ip=#{ip}, refer=#{refer}, level=#{level}, order=#{order}, post_del=#{post_del}
+		WHERE
+		post_id=#{post_id};
+	</update>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+		<delete id="noticeDeleteItem"
+		parameterType="study.spring.ezen05.model.Post">
+		DELETE FROM post WHERE post_id=#{post_id};
+	</delete>
+
+
+	<!--  조회수 증가 처리를 위한 기능 정의 -->
+	<update id="noticeUpdateHit"
+		parameterType="study.spring.ezen05.model.Post">
+		UPDATE post SET hit = hit +1
+		WHERE post_id=#{post_id} 
+	</update>
+	
+		<!-- 특정 게시물을 참조하는 댓글들을 모두 참조 해제 한다. -->
+	<update id="unsetPost"
+		parameterType="study.spring.ezen05.model.Post">
+		UPDATE comment SET post_id=null WHERE post_id=#{post_id}
+	</update>
+
+</mapper>

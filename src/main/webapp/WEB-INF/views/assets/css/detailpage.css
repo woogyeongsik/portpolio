@@ -1,0 +1,439 @@
+
+<!--
+전체 -->body {
+	position: relative;
+	min-width: 1100px;
+	background-color: #fafafa;
+	color: #000;
+	-webkit-text-size-adjust: none;
+	word-break: break-all;
+}
+
+body, input, textarea, select, table, button, code {
+	font-family: '나눔고딕', NanumGothic, -apple-system, BlinkMacSystemFont,
+		Apple SD Gothic Neo, '맑은 고딕', Malgun Gothic, '돋움', dotum, sans-serif;
+	font-size: 14px;
+	line-height: 25px;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td,
+	form, fieldset, legend, input, textarea, button, article, aside, canvas,
+	details, figcaption, figure, footer, header, hgroup, menu, nav, section,
+	audio, video {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	display: block;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+address, caption, cite, code, dfn, em, var {
+	font-style: normal;
+	font-weight: 400;
+}
+
+
+
+
+
+
+
+<!--
+메인페이지 -->.content {
+	margin: -1px auto 0;
+	padding: 34px 35px 0;
+	border: 1px solid #f3f3f3;
+	background: #fff;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.02);
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.02);
+}
+
+.top_photo_area_wrap+.content .ct_box_area {
+	position: relative;
+	z-index: 2010;
+	margin-top: -82px;
+}
+
+.ct_box_area {
+	padding-bottom: 24px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.03);
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.03);
+}
+
+.top_photo_area_wrap+.content .ct_box_area::before {
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	left: -1px;
+	height: 3px;
+	content: '';
+}
+
+img, i {
+	display: inline-block;
+	vertical-align: top;
+}
+
+i {
+	width: 17;
+	height: 19;
+}
+
+<!--
+---------------------------------
+박스1 --------------------------------->
+
+.biz_name_area {
+	padding: 29px 156px 18px;
+	text-align: center;
+}
+
+.biz_name_area .name {
+	margin-right: 10px;
+	font-size: 32px;
+	font-weight: bold;
+	color: #000;
+	line-height: 40px;
+}
+
+.biz_name_area .category {
+	font-size: 16px;
+	color: #9a9a9a;
+	line-height: 20px;
+}
+
+.biz_name_area .info {
+	margin-top: 13px;
+	font-size: 20px;
+}
+
+.biz_name_area .info .info_inner {
+	overflow: hidden;
+	display: block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	max-width: 100%;
+	vertical-align: top;
+	text-align: left;
+}
+
+
+
+
+
+.top_photo_area_wrap+.content .ct_box_area+.ct_box_area {
+	margin-top: 18px;
+}
+
+.ct_box_area+.ct_box_area {
+	margin-top: -1px;
+	padding-right: 35px;
+	padding-bottom: 0 !important;
+	padding-left: 35px;
+}
+
+<---------------------
+박스2 --------------------->.bizinfo_area {
+	padding: 29px 0 24px;
+}
+
+.list_bizinfo .list_item:first-child {
+	margin-top: 10px;
+}
+
+.list_bizinfo .list_item::after {
+	display: block;
+	clear: both;
+	content: '';
+}
+
+.list_bizinfo .tit {
+	float: left;
+	margin-top: 4px;
+	margin-right: 12px;
+}
+
+.list_bizinfo .tit .fas fa-map-marker-alt {
+	float: left;
+	margin-top: 5px;
+	margin-right: 12px;
+	margin-left: 3px;
+}
+
+.list_bizinfo .txt {
+	overflow: hidden;
+	color: #424242;
+}
+
+.list_bizinfo .list_address {
+	overflow: hidden;
+}
+
+.list_bizinfo .list_address li {
+	float: left;
+}
+
+.list_bizinfo .list_address li::after {
+	display: inline-block;
+	width: 3px;
+	height: 3px;
+	margin: 10px 8px 0 9px;
+	border-radius: 3px;
+	background: #e0e0e0;
+	vertical-align: top;
+	content: '';
+}
+
+.list_bizinfo .list_item {
+	margin-top: 12px;
+}
+
+.list_bizinfo .list_address .label_address {
+	margin-top: 4px;
+	margin-right: 7px;
+}
+
+.list_bizinfo .list_address .addr {
+	margin-top: 4px;
+	margin-right: 7px;
+}
+
+.label_address {
+	display: inline-block;
+	width: 30px;
+	height: 18px;
+	border: 1px solid #ddd;
+	border-radius: 1px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: '돋움', dotum, sans-serif;
+	font-size: 11px;
+	color: #666;
+	line-height: 18px;
+	text-align: center;
+	vertical-align: top;
+}
+
+.list_bizinfo .list_address .addr+.btn {
+	margin-left: 6px;
+}
+
+.list_bizinfo .list_item_desc .txt {
+	word-break: normal;
+}
+
+<!--
+-------------------
+박스 3 --------------------->.content .cont_evaluation {
+	padding: 29px 79px 31px;
+	margin-top: 10px;
+	border: 1px solid #eaeaea;
+	background: #fff;
+}
+
+.cont_evaluation .tit_subject {
+	overflow: hidden;
+}
+
+.tit_subject {
+	height: 23px;
+	padding: 10px 0 0;
+	font-size: 17px;
+	line-height: 30px;
+}
+
+.star_rate .inner_star {
+	height: 100%;
+	background-position: 0 -30px;
+}
+
+.list_evaluation li {
+	overflow: hidden;
+	position: relative;
+	min-height: 52px;
+	padding: 17px 0 18px;
+	border-top: 1px solid #f2f2f2;
+}
+
+.list_evaluation .profile_info {
+	float: left;
+	position: relative;
+	width: 48px;
+	height: 48px;
+	margin-right: 31px;
+	background:
+		url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/value_img_profile_default.png)
+		no-repeat;
+}
+
+.list_evaluation .star_info {
+	overflow: hidden;
+	padding-right: 12px;
+}
+
+.list_evaluation .grade_star {
+	overflow: hidden;
+}
+
+.list_evaluation .size_s .star_rate {
+	float: left;
+	width: 88px;
+	height: 16px;
+	background-position: 0 -60px;
+}
+
+.list_evaluation .size_s .star_rate .inner_star {
+	background-position: 0 -80px;
+}
+
+.star_rate .inner_star {
+	height: 100%;
+	background-position: 0 -30px;
+}
+
+.list_evaluation .num_rate {
+	float: left;
+	height: 16px;
+	padding: 0 6px;
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	line-height: 18px;
+	letter-spacing: 0;
+}
+
+.list_evaluation .comment_info {
+	overflow: hidden;
+	padding: 9px 12px 0 0;
+}
+
+.list_evaluation .txt_comment+.append_item {
+	overflow: hidden;
+	height: 23px;
+	padding: 1px 0 0 2px;
+	font-size: 13px;
+}
+
+.list_evaluation .link_function {
+	color: #888;
+}
+
+.evaluation_review .paging_mapdetail {
+	padding-bottom: 19px;
+	border-top: 1px solid #f2f2f2;
+}
+
+.paging_mapdetail {
+	overflow: hidden;
+	padding-top: 20px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	line-height: 28px;
+	text-align: center;
+	vertical-align: top;
+}
+
+.paging_mapdetail .link_page {
+	display: inline-block;
+	width: 15px;
+	height: 28px;
+	line-height: 28px;
+	text-decoration: none;
+	vertical-align: top;
+	letter-spacing: 0;
+}
+
+fieldset {
+	display: block;
+	margin-inline-start: 2px;
+	margin-inline-end: 2px;
+	padding-block-start: 0.35em;
+	padding-inline-start: 0.75em;
+	padding-inline-end: 0.75em;
+	padding-block-end: 0.625em;
+	min-inline-size: min-content;
+	border-width: 2px;
+	border-style: groove;
+	border-color: threedface;
+	border-image: initial;
+}
+
+.evaluation_place .grade_star {
+	overflow: hidden;
+	padding: 19px 19px 20px;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.star_rate {
+	width: 151px;
+	height: 27px;
+	background-position: 0 0;
+}
+
+.ico_star {
+	display: block;
+	background:
+		url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/ico_star_180723.png)
+		no-repeat;
+}
+
+.evaluation_place .star_rate {
+	float: left;
+	height: 27px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+
+.num_rate {
+	float: left;
+	height: 27px;
+	margin: 0 13px 0 12px;
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	letter-spacing: 0;
+}
+
+.evaluation_place  .grade_star  .txt_word {
+	float: left;
+	font-size: 20px;
+	line-height: 25px;
+}
+
+.evaluation_place .write_review {
+	position: relative;
+}
+
+.evaluation_place .lab_review {
+	display: block;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	color: #888;
+}
+
+.evaluation_place .agree_review {
+	position: relative;
+	width: 1px;
+	height: 40px;
+	padding: 0 77px 0 20px;
+}
+
+.btn_enroll {
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	width: 78px;
+	height: 42px;
+	padding-bottom: 1px;
+	color: #fff;
+	background: #3396ff;
+}

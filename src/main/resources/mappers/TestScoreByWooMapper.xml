@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="TestScoreByWooMapper">
+
+
+<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.spring.ezen05.model.TestScoreByWoo" id="RankMap">
+	<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	    <result property="score"      column="score" />
+        <result property="nm" 		  column="nm" />
+        <result property="pla_no" 	  column="pla_no" />
+        <result property="user_id" 	  column="user_id" />
+        <result property="name" 	  column="name" />
+        <result property="gender" 	  column="gender" />
+        <result property="birthdate"  column="birthdate" />
+        <result property="avg"  	  column="avg" />
+    	
+	</resultMap>
+
+
+
+	<select id="selectList" parameterType="study.spring.ezen05.model.TestScoreByWoo" resultMap="RankMap">
+	SELECT team5.place.nm, count(*), team5.place.pla_no, avg(team5.score.score) avg
+	FROM team5.place INNER JOIN score ON place.pla_no = score.pla_no
+	GROUP BY place.nm, place.pla_no
+	ORDER BY avg(score.score) DESC
+	limit 0,5;
+	</select>
+
+	
+	<select id="selectListTen" parameterType="study.spring.ezen05.model.TestScoreByWoo" resultMap="RankMap">
+	SELECT team5.place.nm, count(*), team5.place.pla_no,avg(team5.score.score) avg
+	FROM team5.place INNER JOIN (team5.member INNER JOIN team5.score ON team5.member.user_id = team5.score.user_id) ON team5.place.pla_no = team5.score.pla_no
+	<![CDATA[ WHERE ((Year(Now())-Year(team5.member.birthdate)>=10) and (year(Now()))-Year(team5.member.birthdate)<20) group by team5.place.pla_no, team5.place.nm order by avg desc]]>
+	limit 0,5
+	</select>
+
+	<select id="selectListMan" parameterType="study.spring.ezen05.model.TestScoreByWoo" resultMap="RankMap">
+	   select m.gender, p.pla_no, p.nm, avg(score) avg, count(*)
+	   FROM team5.score 
+	   join team5.member m on m.user_id = team5.score.user_id 
+	   join team5.place p on p.pla_no = team5.score.pla_no 	
+	   WHERE m.gender = "남" 
+	   GROUP BY pla_no 
+	   ORDER BY avg desc 
+	   LIMIT 0,5
+	</select>
+	
+	
+	<select id="selectItem" parameterType="study.spring.ezen05.model.TestScoreByWoo" resultMap="RankMap">
+	   Select m.gender, p.pla_no, p.nm, avg(score) avg, count(*)
+	   FROM team5.score 
+	   join team5.member m on m.user_id = team5.score.user_id 
+	   join team5.place p on p.pla_no = team5.score.pla_no 	
+	   WHERE m.gender=#{gender}
+	   GROUP BY pla_no 
+	   ORDER BY avg desc 
+	   LIMIT 0,5 
+	</select>
+	
+	<select id="selectAge" parameterType="study.spring.ezen05.model.TestScoreByWoo" resultMap="RankMap">
+	SELECT team5.place.nm, count(*), team5.place.pla_no,avg(team5.score.score) avg
+	FROM team5.place INNER JOIN (team5.member INNER JOIN team5.score ON team5.member.user_id = team5.score.user_id) ON team5.place.pla_no = team5.score.pla_no
+	<![CDATA[ WHERE ((Year(Now())-Year(team5.member.birthdate)>=#{age1}) and (year(Now()))-Year(team5.member.birthdate)<#{age2}) group by team5.place.pla_no, team5.place.nm order by avg desc]]>
+	limit 0,5	
+	
+	</select>
+	
+</mapper>
